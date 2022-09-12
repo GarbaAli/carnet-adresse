@@ -1,0 +1,33 @@
+﻿@model AppUser
+
+@{ 
+    ViewBag.Title = "View Account";
+}
+
+<div class="container">
+    <h2 class="text-center"> Detail Account </h2>
+    <div class="row">
+        <div class="col-sm-3">
+
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+
+                <div class="card-body">
+                    <h5 class="card-title">@Model.FirstName <strong>@Model.LasttName </strong></h5>
+                    <p class="card-text">@Model.Email</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Age :</strong>@Model.Age</li>
+                </ul>
+                <div class="card-body">
+                    <a asp-controller="Account" asp-action="Edit" asp-route-id="@Model.Id" class="btn-sm btn-dark">Update</a>
+                    <a asp-controller="Contact" asp-action="Index" class="btn-sm btn-danger">Back To List</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+
+        </div>
+    </div>
+</div>

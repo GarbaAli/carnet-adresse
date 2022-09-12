@@ -1,0 +1,92 @@
+﻿@model Contact
+@{
+    ViewBag.Title = "Update employe";
+    var photopathName = "/Images/" + (Model.avatar ?? "def.jpg");
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+
+        </div>
+        <div class="col-sm-6">
+            <form enctype="multipart/form-data" asp-action="Update" asp-controller="Contact" method="post">
+                <input hidden asp-for="contactId" />
+                <input hidden asp-for="avatar" />
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="FirstName"></label>
+                        <input type="text" class="form-control" asp-for="FirstName">
+                        <span asp-validation-for="FirstName"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="LastName"></label>
+                        <input type="text" class="form-control" asp-for="LastName">
+                        <span asp-validation-for="LastName"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label asp-for="email"></label>
+                        <input class="form-control" asp-for="email">
+                        <span asp-validation-for="email"></span>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label asp-for="phone"></label>
+                        <input class="form-control" asp-for="phone">
+                        <span asp-validation-for="phone"></span>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label asp-for="Bio"></label>
+                        <textarea class="form-control" asp-for="Bio"></textarea>
+                        <span asp-validation-for="Bio"></span>
+                    </div>
+
+                    <div class="col-md-12 mb-3 custom-file">
+                        <input asp-for="avatar" type="file" accept="images/*" class="custom-file-input" id="avatarinput">
+                        <label class="custom-file-label" for="validatedInputGroupCustomFile">Charger votre avatar...</label>
+                    </div>
+                </div>
+
+                <div class="form-row">
+
+                    <div class="col-md-6 mb-3">
+                        <button class="btn btn-primary" type="submit">Update Employe</button>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <a asp-controller="Contact" asp-action="Index" class="btn btn-danger">Retour a la liste</a>
+                    </div>
+                </div>
+
+
+            </form>
+            @if (Model.avatar != null)
+            {
+                <div class="col-md-12 mb-3 custom-file">
+                    <img asp-append-version="true" src="@photopathName" style="height:250px" class="card-img-top" alt="@Model.FirstName">
+                </div>
+            }
+            else
+            {
+                <div class="col-md-12 mb-3 custom-file">
+                    <span class="alert  alert-dark">Aucun Avatar! Charger en un...</span>
+                </div>
+            }
+        </div>
+        <div class="col-sm-3">
+
+        </div>
+    </div>
+</div>
+
+@section createSectionJs{
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $("#avatarinput").on("change", function () {
+            var inputphoto = $(this).val().split("\\").pop();
+            $(this).next(".custom-file-label").html(inputphoto);
+        });
+    })
+    </script>
+}

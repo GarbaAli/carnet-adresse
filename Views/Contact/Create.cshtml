@@ -1,0 +1,67 @@
+﻿@model ContactCreateViewModel
+@{ 
+    ViewBag.Title = "Ajouter employe";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+           
+        </div>
+        <div class="col-sm-6">
+            <form enctype="multipart/form-data" asp-action="Create" asp-controller="Contact" method="post">
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="FirstName"></label>
+                        <input type="text" class="form-control" asp-for="FirstName" >
+                        <span asp-validation-for="FirstName"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="LastName"></label>
+                        <input type="text" class="form-control" asp-for="LastName">
+                        <span asp-validation-for="LastName"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label asp-for="email"></label>
+                        <input class="form-control" asp-for="email">
+                        <span asp-validation-for="email"></span>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label asp-for="phone"></label>
+                        <input class="form-control" asp-for="phone">
+                        <span asp-validation-for="phone"></span>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label asp-for="Bio"></label>
+                        <textarea class="form-control" asp-for="Bio"></textarea>
+                        <span asp-validation-for="Bio"></span>
+                    </div>
+
+                    <div class="col-md-12 mb-3 custom-file">
+                        <input asp-for="avatar" type="file" accept="images/*" class="custom-file-input" id="avatarinput">
+                        <label class="custom-file-label" for="validatedInputGroupCustomFile">Charger votre avatar...</label>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" type="submit">Nouvel Employe</button>
+            </form>
+        </div>
+        <div class="col-sm-3">
+           
+        </div>
+    </div>
+</div>
+
+@section createSectionJs{ 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#avatarinput").on("change", function () {
+            var inputphoto = $(this).val().split("\\").pop();
+            $(this).next(".custom-file-label").html(inputphoto);
+        });
+    })
+</script>
+}

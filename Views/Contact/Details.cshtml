@@ -1,0 +1,43 @@
+﻿@model ContactViewModel
+
+@{
+    ViewBag.Title = "Detail contact";
+    var photopathName = "/Images/" + (Model.contact.avatar ?? "def.jpg");
+
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+               
+                <img asp-append-version="true" src="@photopathName" style="height:250px" class="card-img-top" alt="@Model.contact.FirstName">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.contact.FirstName <strong>@Model.contact.LastName </strong></h5>
+                    <p class="card-text">@Model.contact.Bio.</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">@Model.contact.email</li>
+                    <li class="list-group-item">@Model.contact.phone</li>
+                    <li class="list-group-item">
+                        @foreach (var ad in Model.contact.Adresses)
+                        {
+                            @ad.libelleAdresse <span> - </span>
+                        }
+                    </li>
+                </ul>
+                <div class="card-body">
+                    <a asp-controller="Contact" asp-action="Update" asp-route-id="@Model.contact.contactId" class="btn btn-info">Update</a>
+                    <a asp-controller="Contact" asp-action="Index" class="btn btn-danger">Retour</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+
+        </div>
+    </div>
+</div>

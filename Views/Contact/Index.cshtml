@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Contact>
+
+@{ 
+    ViewBag.Title = "List of Contact";
+}
+
+<h2  style="text-align: center">Mon Repertoire</h2>
+<hr />
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            var photopathName = "Images/" + (item.avatar == null ? "def.jpg" : item.avatar);
+        <div class="col-sm">
+            <div class="card" style="width: 18rem;">
+                <img asp-append-version="true" style="height:200px" src="@photopathName" class="card-img-top" alt="@item.FirstName">
+                <div class="card-body">
+                    <h5 class="card-title">@item.FirstName <strong>@item.LastName</strong></h5>
+                    <p class="card-text">@item.Bio</p> 
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">@item.email</li>
+                    <li class="list-group-item">@item.phone</li>
+                    <li class="list-group-item">
+                        @foreach (var ad in item.Adresses)
+                        {
+                            @ad.libelleAdresse <span> - </span>
+                        }
+                    </li>
+                </ul>
+                <div class="card-body">
+                    <a asp-controller="Contact" asp-action="Details" asp-route-id="@item.contactId" class="btn btn-primary">Voir</a>
+                    <a asp-controller="Contact" asp-action="Update" asp-route-id="@item.contactId" class="btn btn-info">Update</a>
+                    <a asp-controller="Contact" asp-route-id="@item.contactId" asp-action="Delete" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+        }
+
+
+    </div>
+</div>

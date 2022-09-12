@@ -1,0 +1,103 @@
+﻿@inject SignInManager<AppUser>  _signInManager
+@inject UserManager<AppUser> _userManager
+
+@{ 
+    
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - carnet_adresse</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Contact" asp-action="Index">carnet_adresse</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="btn btn-outline-info" asp-area="" asp-controller="Contact" asp-action="Create">Nouvel Employé</a>
+                        </li>
+
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+
+                        @if (_signInManager.IsSignedIn(User))
+                        {
+                            string Fullname = User.Identity.Name;
+                            AppUser user = await _userManager.FindByEmailAsync(User.Identity.Name);
+                            if (user != null && !string.IsNullOrEmpty(user.FirstName) && !string.IsNullOrEmpty(user.LasttName))
+                            {
+                                Fullname = user.FirstName.ToUpper() + " " + user.LasttName.ToLower();
+                            }
+
+                            <li class="nav-item dropdown"> 
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" href="#">@Fullname</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-action="Edit" asp-route-id="@user.Id" asp-controller="Account">Edit Account</a>
+                                    <a class="dropdown-item" asp-action="Detail" asp-route-id="@user.Id" asp-controller="Account">View Account</a>
+                                    <a class="dropdown-item" asp-controller="Administration" asp-action="List">All Roles</a>
+                                    <a class="dropdown-item" asp-controller="Administration" asp-action="Create">Add Roles</a>
+                                    <div>
+                                        <ul class=" navbar-nav">
+                                            <li class="nav-item">
+                                                <form asp-action="Logout" asp-controller="Account" method="post">
+                                                    <button type="submit" class="btn btn-dark" style="width:10em">
+                                                        <i class="fa fa-close"></i>Logout
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </li>
+                           
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="btn btn-dark" asp-action="Register" asp-controller="Account">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-outline-dark" asp-action="Login" asp-controller="Account">Login</a>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - carnet_adresse - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+    @RenderSection(name: "createSectionJs", required: false);
+</body>
+</html>

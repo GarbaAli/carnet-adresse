@@ -1,0 +1,27 @@
+﻿@model IEnumerable<IdentityRole>
+
+@{
+    ViewBag.Title = "List of Role";
+}
+
+<h2 style="text-align: center">List Of Role</h2>
+<hr />
+<div class="container">
+    <div class="row">
+        @foreach (IdentityRole item in Model)
+        {
+            <div class="col-sm">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title"><strong>@item.Name</strong></h5>
+                        <p class="card-text">@item.Id</p>
+                    </div>
+                    <div class="card-body">
+                        <a asp-controller="Administration" asp-action="Edit" asp-route-id="@item.Id" class="btn-sm btn-dark">Update</a>
+                        <a asp-controller="Contact" asp-route-id="@item.Id" asp-action="Delete" class="btn-sm btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
